@@ -1,4 +1,10 @@
-# Conversions
+# TODOs:
+
+- Add more documentation
+- Make code more generic
+- Add launch files
+
+## Conversions
 
 ### checkpoint to .pb
 ```
