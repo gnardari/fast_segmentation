@@ -1,0 +1,3 @@
+build/
+**/*.pyc
+scripts/__pycache__/

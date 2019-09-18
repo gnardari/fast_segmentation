@@ -1,0 +1,7 @@
+<library path="lib/libtrt_inference">
+    <class name="trt_inference/SegmentationNodelet" type="trt_inference::SegmentationNodelet" base_class_type="nodelet::Nodelet">
+        <description>
+            Segmentation Nodelet
+        </description>
+    </class>
+</library>
