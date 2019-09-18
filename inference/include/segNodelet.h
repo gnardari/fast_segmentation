@@ -1,7 +1,7 @@
 #pragma once
 
 #include <nodelet/nodelet.h>
-#include <locNode.h>
+#include <segNode.h>
 
 namespace trt_inference {
     class SegmentationNodelet : public nodelet::Nodelet {

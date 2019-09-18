@@ -1,4 +1,4 @@
-#include <locNodelet.h>
+#include <segNodelet.h>
 #include <pluginlib/class_list_macros.h>
 
 namespace trt_inference {

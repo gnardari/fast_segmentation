@@ -54,10 +54,10 @@ target_compile_definitions(inferenceEngineCPU PRIVATE ${tensorflow_ros_cpp_CMAKE
 #
 # cuda_add_executable(run_plan src/run_plan.cu)
 # target_link_libraries(run_plan ${OpenCV_LIBS} nvinfer nvparsers)
-# add_executable(${PROJECT_NAME} src/locNode.cpp)
+# add_executable(${PROJECT_NAME} src/segNode.cpp)
 
 add_library(${PROJECT_NAME}
-            src/locNode.cpp
-            src/locNodelet.cpp)
+            src/segNode.cpp
+            src/segNodelet.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC include ${catkin_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} inferenceEngineCPU ${OpenCV_LIBS} ${catkin_LIBRARIES})

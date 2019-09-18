@@ -1,4 +1,4 @@
-#include <locNode.h>
+#include <segNode.h>
 
 namespace trt_inference {
 Segmentation::Segmentation(ros::NodeHandle& nh, EngConfig ec)
