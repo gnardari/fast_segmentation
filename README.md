@@ -4,6 +4,9 @@
 - Make code more generic
 - Add launch files
 
+# Dependencies
+1. Install TensorRT ``` sudo aptitude install libnvinfer5 libnvinfer-dev```
+
 ## Conversions
 
 ### checkpoint to .pb
