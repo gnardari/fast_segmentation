@@ -1,5 +1,6 @@
 #pragma once
 
+#include <common.h>
 #include <iostream>
 #include <algorithm>
 #include <chrono>
@@ -49,6 +50,7 @@ class InferenceEngine{
         void run(const cv::Mat& image, cv::Mat& classes);
 
     private:
+        Common::PerformanceTimer timer_;
         float* imageToTensor_(const cv::Mat &image);
         void argmax_(float *tensor, vector<unsigned char>& max);
         unsigned int countClasses_(float *tensor);

@@ -118,10 +118,22 @@ void InferenceEngine::argmax_(float *tensor, vector<unsigned char>& max){
 }
 
 void InferenceEngine::run(const cv::Mat & image, cv::Mat& out){
+    timer_.startCpuTimer();
     float* input = imageToTensor_(image);
+    timer_.endCpuTimer();
+    std::cout << "input preproc: " << timer_.getCpuElapsedTimeForPreviousOperation() << std::endl;
+
+    timer_.startGpuTimer();
     cudaHostGetDevicePointer(&inputDevice_, input, 0);
     bindings_[inputBindIndex_] = inputDevice_;
+    timer_.endGpuTimer();
+    std::cout << "bindings: " << timer_.getGpuElapsedTimeForPreviousOperation() << std::endl;
+
+    timer_.startGpuTimer();
     context_->execute(1, (void**)bindings_);
+    timer_.endGpuTimer();
+    std::cout << "execute model: " << timer_.getGpuElapsedTimeForPreviousOperation() << std::endl;
+    
     vector<unsigned char> max;
     //countClasses_(output_);
     argmax_(output_, max);
