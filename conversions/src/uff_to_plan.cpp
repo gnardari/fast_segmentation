@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 {
   if (argc != 10)
   {
-    cout << "Usage: <uff_filename> <plan_filename> <input_name> <input_height> <input_width>"
+    cout << "Usage: <uff_filename> <plan_filename> <input_name> <input_height> <input_width> <channels>"
       << " <output_name> <max_batch_size> <max_workspace_size> <data_type>\n";
     return 1;
   }
@@ -59,16 +59,17 @@ int main(int argc, char *argv[])
   string inputName = argv[3];
   int inputHeight = toInteger(argv[4]);
   int inputWidth = toInteger(argv[5]);
-  string outputName = argv[6];
-  int maxBatchSize = toInteger(argv[7]);
-  int maxWorkspaceSize = toInteger(argv[8]);
-  DataType dataType = toDataType(argv[9]);
+  int inputChan = toInteger(argv[6]);
+  string outputName = argv[7];
+  int maxBatchSize = toInteger(argv[8]);
+  int maxWorkspaceSize = toInteger(argv[9]);
+  DataType dataType = toDataType(argv[10]);
 
   /* parse uff */
   IBuilder *builder = createInferBuilder(gLogger);
   INetworkDefinition *network = builder->createNetwork();
   IUffParser *parser = createUffParser();
-  parser->registerInput(inputName.c_str(), DimsCHW(1, inputHeight, inputWidth), UffInputOrder::kNCHW);
+  parser->registerInput(inputName.c_str(), DimsCHW(inputChan, inputHeight, inputWidth), UffInputOrder::kNCHW);
   parser->registerOutput(outputName.c_str());
   if (!parser->parse(uffFilename.c_str(), *network, dataType))
   {
