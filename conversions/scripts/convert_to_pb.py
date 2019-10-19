@@ -1,11 +1,6 @@
 import tensorflow as tf
+import sys
 from tensorflow.core.framework import node_def_pb2
-
-
-meta_path = 'models/fake_erfnet_nobn/snapshots_best/snapshot.chk.meta' # Your .meta file
-output_node_names = ['fres9/conv_b_1x3/Relu','d8/concat','up23/BiasAdd']    # Output nodes
-# output_node_names = ['preds/Argmax','preds/probs']    # Output nodes
-model = 'models/fake_erfnet_nobn/snapshots_best/snapshot.chk.data-00000-of-00001'
 
 def remove_train_ops(graph_def):
     # Remove all ops that cannot run on the CPU
@@ -45,62 +40,46 @@ def switch_to_placeholder(graph_def):
     return graph_def
 
 
-# meta_graph_def = tf.MetaGraphDef()
-# with open(meta_path, 'rb') as f:
-#     meta_graph_def.MergeFromString(f.read())
+# meta_path = 'models/fake_erfnet_nobn/snapshots_best/snapshot.chk.meta' # Your .meta file
+# output_node_names = ['fres9/conv_b_1x3/Relu','d8/concat','up23/BiasAdd']    # Output nodes
+# # output_node_names = ['preds/Argmax','preds/probs']    # Output nodes
+# model = 'models/fake_erfnet_nobn/snapshots_best/snapshot.chk.data-00000-of-00001'
 
-# gdef = meta_graph_def.graph_def
-# gdef = switch_to_placeholder(gdef)
-# tf.graph_util.remove_training_nodes(tf.get_default_graph().as_graph_def())
-# remove_train_ops(gdef)
+try:
+    meta_path = sys.argv[1]
+    ckpt_path = sys.argv[2]
+    out_path = sys.argv[3]
+    output_nodes = []
+    for out_node in sys.argv[4:]:
+        output_nodes.append(out_node)
+except Exception as e:
+    print('Usage: python convert_to_pb.py path/to/model.chk.meta path/to/model.chk.data path/to/output.pb (outputNodeName)+')
+    print(e)
+    exit()
 
-# print([n.name for n in gdef.node])
-# sess = tf.Session()
-# saver = tf.train.import_meta_graph(gdef, clear_devices=True)
-# saver.restore(sess, model)
-# exit()
+print('Metadata path: {}\nCkpt path: {}\nOutput model path: {}\nOutput Nodes: {}'.format(
+    meta_path, ckpt_path, out_path, output_nodes))
+
 with tf.Session() as sess:
 
     # Restore the graph
-    # saver = tf.train.import_meta_graph(meta_path)
-    saver = tf.train.import_meta_graph(meta_path, input_map={'inputs/is_training': tf.convert_to_tensor(False)})
-    # saver = tf.train.import_meta_graph(meta_graph_def, clear_devices=True)
+    # saver = tf.train.import_meta_graph(meta_path, input_map={'inputs/is_training': tf.convert_to_tensor(False)})
+    saver = tf.train.import_meta_graph(meta_path, clear_devices=True)
 
     # Load weights
-    saver.restore(sess,tf.train.latest_checkpoint('models/fake_erfnet_nobn/snapshots_best'))
-    # saver.restore(sess,model)
+    saver.restore(sess,tf.train.latest_checkpoint(ckpt_path))
 
     gdef = tf.get_default_graph().as_graph_def()
-    print([n.name for n in gdef.node if 'BiasAdd' in n.name])
-    # for n in gdef.node:
-    #     if 'preds' in n.name:
-    #         # gdef.node.remove(n)
-    #         print(n.name)
-        # if 'input' in n.name:
-        #     print(n.name)
-
-    # gdef = switch_to_placeholder(gdef)
-    # remove_train_ops(gdef)
     clean_graph = tf.graph_util.remove_training_nodes(gdef)
     remove_train_ops(clean_graph)
-    # print(([n.name for n in clean_graph.node]))
-
-          # placeholder_node = node_def_pb2.NodeDef()
-          # placeholder_node.op = "Const"
-          # placeholder_node.name = n.name
-          # placeholder_node.attr['value'] = False
-          # gdef.node[nidx] = placeholder_node
-    for nidx, n in enumerate(clean_graph.node):
-        if n.op == 'Switch':
-          print(n.name)
 
     # Freeze the graph
     frozen_graph_def = tf.graph_util.convert_variables_to_constants(
         sess,
         clean_graph,
-        output_node_names)
+        output_nodes)
 
     # Save the frozen graph
-    with open('erfnet_nobn.pb', 'wb') as f:
+    with open(out_path, 'wb') as f:
       f.write(frozen_graph_def.SerializeToString())
 

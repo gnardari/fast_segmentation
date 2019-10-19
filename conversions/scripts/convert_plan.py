@@ -59,7 +59,7 @@ if __name__ == '__main__':
     max_batch_size = sys.argv[7]
     max_workspace_size = sys.argv[8]
     data_type = sys.argv[9]
-    
+
     frozenToPlan(frozen_graph_filename,
         plan_filename,
         input_name,

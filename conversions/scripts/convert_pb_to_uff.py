@@ -2,12 +2,6 @@ import tensorflow as tf
 import uff
 import sys
 
-# pb_file_path = "../../models/erfnet_nobn.pb"
-# uff_model = uff.from_tensorflow(graphdef=output_graph_def,
-# output_nodes=["up23/BiasAdd"],
-# output_filename="../../models/model.uff",
-# text=True)
-
 try:
     pb_file_path = sys.argv[1]
     output_filename = sys.argv[2]
