@@ -45,8 +45,8 @@ target_link_libraries(inferenceEngineCPU ${tensorflow_ros_cpp_LIBRARIES} ${catki
 target_compile_definitions(inferenceEngineCPU PRIVATE ${tensorflow_ros_cpp_CMAKE_CXX_FLAGS_PRIVATE})
 
 add_library(inferenceNodeCPU
-    src/segNodeCPU.cpp
-    src/segNodeletCPU.cpp)
+    src/infNodeCPU.cpp
+    src/infNodeletCPU.cpp)
 target_include_directories(inferenceNodeCPU PUBLIC include ${catkin_INCLUDE_DIRS})
 target_link_libraries(inferenceNodeCPU inferenceEngineCPU ${OpenCV_LIBS} ${catkin_LIBRARIES})
 
@@ -59,9 +59,9 @@ target_link_libraries(inferenceEngine ${OpenCV_LIBS} nvinfer nvparsers)
 # target_link_libraries(test_inf ${OpenCV_LIBS} inferenceEngine nvinfer nvparsers)
 
 # if you don't want to use a nodelet, use add_executable instead of add library
-# add_executable(${PROJECT_NAME} src/segNode.cpp)
+# add_executable(${PROJECT_NAME} src/infNode.cpp)
 add_library(inferenceNode
-    src/segNode.cpp
-    src/segNodelet.cpp)
+    src/infNode.cpp
+    src/infNodelet.cpp)
 target_include_directories(inferenceNode PUBLIC include ${catkin_INCLUDE_DIRS})
 target_link_libraries(inferenceNode inferenceEngine ${OpenCV_LIBS} ${catkin_LIBRARIES})

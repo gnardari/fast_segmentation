@@ -1,7 +1,12 @@
 <library path="lib/libtrt_inference">
-    <class name="trt_inference/SegmentationNodelet" type="trt_inference::SegmentationNodelet" base_class_type="nodelet::Nodelet">
+    <class name="trt_inference/InferenceNodelet" type="trt_inference::InferenceNodelet" base_class_type="nodelet::Nodelet">
         <description>
-            Segmentation Nodelet
+            Inference Nodelet GPU
+        </description>
+    </class>
+    <class name="trt_inference/InferenceNodeletCPU" type="trt_inference::InferenceNodeletCPU" base_class_type="nodelet::Nodelet">
+        <description>
+            Inference Nodelet CPU
         </description>
     </class>
 </library>

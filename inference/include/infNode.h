@@ -23,14 +23,14 @@ typedef message_filters::Subscriber<sensor_msgs::PointCloud2> pc_sub_type;
 namespace imgEnc = sensor_msgs::image_encodings;
 
 namespace trt_inference {
-class Segmentation : public InferenceEngine {
+class Inference : public InferenceEngine {
  public:
-  explicit Segmentation(ros::NodeHandle& nh, EngConfig ec);
+  explicit Inference(ros::NodeHandle& nh, EngConfig ec);
 
-  Segmentation(const Segmentation&) = delete;
-  Segmentation operator=(const Segmentation&) = delete;
-  using Ptr = boost::shared_ptr<Segmentation>;
-  using ConstPtr = boost::shared_ptr<const Segmentation>;
+  Inference(const Inference&) = delete;
+  Inference operator=(const Inference&) = delete;
+  using Ptr = boost::shared_ptr<Inference>;
+  using ConstPtr = boost::shared_ptr<const Inference>;
 
  private:
   void semanticSegCb_(const sensor_msgs::ImageConstPtr& imgMsg);

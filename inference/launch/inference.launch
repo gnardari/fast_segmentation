@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <!-- SEGMENTATION -->
+  <arg name="inf_width" default="900" />
+  <arg name="inf_height" default="16" />
+  <arg name="inf_numClasses" default="2" />
+  <arg name="inf_planPath" default="/root/bags/models/model.plan" />
+  <arg name="inf_inpTensorName" default="inputs/X" />
+  <arg name="inf_outTensorName" default="up23/BiasAdd" />
+
+  <group ns="$(arg frame_id)">
+    <node pkg="nodelet" type="nodelet" name="nodelet_manager" args="manager" output="screen"/>
+
+    <node pkg="nodelet" type="nodelet" name="InferenceNodelet" args="load trt_inference/InferenceNodelet nodelet_manager" output="screen">
+      <param name="width" value="$(arg inf_width)" />
+      <param name="height" value="$(arg inf_height)" />
+      <param name="numClasses" value="$(arg inf_numClasses)" />
+      <param name="planPath" value="$(arg inf_planPath)" />
+      <param name="inputTensorName" value="$(arg inf_inpTensorName)" />
+      <param name="outputTensorName" value="$(arg inf_outTensorName)" />
+    </node>
+ </group>
+</launch>

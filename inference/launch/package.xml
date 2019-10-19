@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>inference_launch</name>
+  <version>0.0.1</version>
+  <description>launch files for inference</description>
+
+  <maintainer email="guinardari@usp.br">Gui</maintainer>
+  <maintainer email="yvarcot@seas.upenn.edu">Vaibhav</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+  </export>
+</package>

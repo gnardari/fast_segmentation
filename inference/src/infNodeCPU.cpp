@@ -1,21 +1,21 @@
-#include <segNodeCPU.h>
+#include <infNodeCPU.h>
 
 namespace trt_inference {
-Segmentation::Segmentation(ros::NodeHandle& nh, EngConfig ec)
+Inference::Inference(ros::NodeHandle& nh, EngConfig ec)
     : nh_(nh), it_(nh), InferenceEngineCPU(ec) {
   
   // Publisher
   maskPub_ = it_.advertise("maskImg", 10);
   // Subscriber
-  imgSub_ = it_.subscribe("image", 1, &Segmentation::semanticSegCb_, this);
+  imgSub_ = it_.subscribe("image", 1, &Inference::semanticSegCb_, this);
 }
 
-void Segmentation::preProcessRange_(const cv::Mat& inpImg, cv::Mat& outImg) {
+void Inference::preProcessRange_(const cv::Mat& inpImg, cv::Mat& outImg) {
     // you can add preprocessing steps here
     outImg = inpImg.clone();
 }
 
-void Segmentation::semanticSegCb_(
+void Inference::semanticSegCb_(
     const sensor_msgs::ImageConstPtr& imgMsg) {
 
   ROS_INFO("Got new msg");
