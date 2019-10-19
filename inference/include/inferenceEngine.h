@@ -49,12 +49,7 @@ class InferenceEngine{
         ~InferenceEngine(void);
         void run(const cv::Mat& image, cv::Mat& classes);
 
-    private:
-        Common::PerformanceTimer timer_;
-        float* imageToTensor_(const cv::Mat &image);
-        void argmax_(float *tensor, vector<unsigned char>& max);
-        unsigned int countClasses_(float *tensor);
-
+    protected:
         string modelPath_;
         string inputTensorName_;
         string outputTensorName_;
@@ -62,6 +57,12 @@ class InferenceEngine{
         unsigned int height_;
         unsigned int numClasses_;
         unsigned int inputSizeBytes_;
+
+    private:
+        Common::PerformanceTimer timer_;
+        float* imageToTensor_(const cv::Mat &image);
+        void argmax_(float *tensor, vector<unsigned char>& max);
+        unsigned int countClasses_(float *tensor);
 
         int inputBindIndex_;
         int outputBindIndex_;

@@ -1,8 +1,8 @@
-#include <segNode.h>
+#include <segNodeCPU.h>
 
 namespace trt_inference {
 Segmentation::Segmentation(ros::NodeHandle& nh, EngConfig ec)
-    : nh_(nh), it_(nh), InferenceEngine(ec) {
+    : nh_(nh), it_(nh), InferenceEngineCPU(ec) {
   
   // Publisher
   maskPub_ = it_.advertise("maskImg", 10);

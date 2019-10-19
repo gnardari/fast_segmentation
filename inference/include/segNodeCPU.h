@@ -16,14 +16,15 @@
 #include <sensor_msgs/image_encodings.h>
 #include <fstream>
 #include <iostream>
-#include <inferenceEngine.h>
+// #include <inferenceEngine.h>
+#include <inferenceEngineCPU.h>
 
 typedef message_filters::Subscriber<sensor_msgs::Image> image_sub_type;
 typedef message_filters::Subscriber<sensor_msgs::PointCloud2> pc_sub_type;
 namespace imgEnc = sensor_msgs::image_encodings;
 
 namespace trt_inference {
-class Segmentation : public InferenceEngine {
+class Segmentation : public InferenceEngineCPU {
  public:
   explicit Segmentation(ros::NodeHandle& nh, EngConfig ec);
 

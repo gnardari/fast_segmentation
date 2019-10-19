@@ -1,4 +1,4 @@
-#include <segNodelet.h>
+#include <segNodeletCPU.h>
 #include <pluginlib/class_list_macros.h>
 
 namespace trt_inference {
@@ -6,15 +6,15 @@ void SegmentationNodelet::onInit() {
   // ros::NodeHandle nh_(getMTPrivateNodeHandle());
   ros::NodeHandle nh_(getPrivateNodeHandle());
 
-  const string planPath = "models/modeltrt.plan";
-  const string input = "inputs/X";
-  const string output = "up23/BiasAdd";
+  const char* modelPath = "/root/bags/models/tree_loam_4w_alldata_maxn.pb";
+  const char* input = "inputs/X";
+  const char* output = "up23/BiasAdd";
 
   EngConfig ec;
   ec.width = nh_.param("width", 900);
   ec.height = nh_.param("height", 16);
   ec.numClasses = nh_.param("numClasses", 2);
-  ec.planPath = planPath;
+  ec.modelPath = modelPath;
   ec.inputTensorName = input;
   ec.outputTensorName = output;
   // ec.modelPath = nh_.param<const char*>("modelPath", modelPath);
