@@ -1,12 +1,14 @@
 # TODOs:
 
 - Add more documentation
-- Make code more generic
+- Make inference more generic (command line/launch file configs)
+- Change the way the input is passed to the gpu in InferenceEngine.cu
 - Add launch files
 
 # Dependencies
-1. Install Tensorflow ```pip install tensorflow or pip instlal tensorflow-gpu```
-1. Install TensorRT ``` sudo aptitude install libnvinfer5 libnvinfer-dev```
+1. Install nvidia drivers/cuda
+2. Install Tensorflow ```pip install tensorflow or pip install tensorflow-gpu```
+3. Install TensorRT ``` sudo aptitude install libnvinfer5 libnvinfer-dev```
 
 ## Conversions
 
@@ -30,12 +32,11 @@ python3 convert_pb_to_uff.py path/to/model.pb path/to/output.uff (outputNodeName
 ##### You need to do this conversion on the device that is going to use the model
 ```
 cd conversions
-# fix paths and file names on src/uff_to_plan.cpp
 mkdir build && cd build
 cmake ..
 make -j4
 cd src # inside build
-./uff_to_plan models/mymodel.uff models/mymodel.plan inputs/X 256 256 up23/BiasAdd 1 500000 float
+./uff_to_plan models/mymodel.uff models/mymodel.plan inputs/X 256 256 1 up23/BiasAdd 1 500000 float
 ```
 
 # Inference
