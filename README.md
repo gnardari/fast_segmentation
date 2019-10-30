@@ -2,7 +2,7 @@
 
 - Make inference more generic (command line/launch file configs)
 - Change the way the input is passed to the gpu in InferenceEngine.cu
-- Add example outputs and time benchmarks
+- Add time benchmarks
 
 # Dependencies
 1. Install nvidia drivers/cuda
@@ -51,6 +51,10 @@ cd src # inside build
 
 We provide a simple model trained on [Kitti Road detection](http://www.cvlibs.net/datasets/kitti/eval_road.php) that can be used to test the entire pipeline [here](https://drive.google.com/drive/folders/12T8LE0TrVuoZUSMmXvwAZeWKNbiDMTqt?usp=sharing). All inputs were resized to (368x1200) for training.
 
+**Input**
+![Input](https://raw.githubusercontent.com/gnardari/fast_segmentation/master/data/input.png)
 
+**Output**
+![Output](https://raw.githubusercontent.com/gnardari/fast_segmentation/master/data/out.png)
 
 This project uses scripts from [NVIDIA trt_image_classification](https://github.com/NVIDIA-AI-IOT/tf_to_trt_image_classification)
