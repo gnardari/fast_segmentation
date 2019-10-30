@@ -2,6 +2,7 @@
 
 <launch>
   <!-- SEGMENTATION -->
+  <arg name="frame_id" default="world" />
   <arg name="inf_width" default="900" />
   <arg name="inf_height" default="16" />
   <arg name="inf_numClasses" default="2" />
@@ -12,7 +13,7 @@
   <group ns="$(arg frame_id)">
     <node pkg="nodelet" type="nodelet" name="nodelet_manager" args="manager" output="screen"/>
 
-    <node pkg="nodelet" type="nodelet" name="InferenceNodelet" args="load trt_inference/InferenceNodelet nodelet_manager" output="screen">
+    <node pkg="nodelet" type="nodelet" name="InferenceNodelet" args="load Inference/InferenceNodelet nodelet_manager" output="screen">
       <param name="width" value="$(arg inf_width)" />
       <param name="height" value="$(arg inf_height)" />
       <param name="numClasses" value="$(arg inf_numClasses)" />

@@ -44,11 +44,11 @@ target_include_directories(inferenceEngineCPU BEFORE PRIVATE ${tensorflow_ros_cp
 target_link_libraries(inferenceEngineCPU ${tensorflow_ros_cpp_LIBRARIES} ${catkin_LIBRARIES})
 target_compile_definitions(inferenceEngineCPU PRIVATE ${tensorflow_ros_cpp_CMAKE_CXX_FLAGS_PRIVATE})
 
-add_library(inferenceNodeCPU
+add_library(inferenceCPU
     src/infNodeCPU.cpp
     src/infNodeletCPU.cpp)
-target_include_directories(inferenceNodeCPU PUBLIC include ${catkin_INCLUDE_DIRS})
-target_link_libraries(inferenceNodeCPU inferenceEngineCPU ${OpenCV_LIBS} ${catkin_LIBRARIES})
+target_include_directories(inferenceCPU PUBLIC include ${catkin_INCLUDE_DIRS})
+target_link_libraries(inferenceCPU inferenceEngineCPU ${OpenCV_LIBS} ${catkin_LIBRARIES})
 
 # GPU
 cuda_add_library(inferenceEngine src/inferenceEngine.cu)
@@ -60,8 +60,8 @@ target_link_libraries(inferenceEngine ${OpenCV_LIBS} nvinfer nvparsers)
 
 # if you don't want to use a nodelet, use add_executable instead of add library
 # add_executable(${PROJECT_NAME} src/infNode.cpp)
-add_library(inferenceNode
+add_library(inference
     src/infNode.cpp
     src/infNodelet.cpp)
-target_include_directories(inferenceNode PUBLIC include ${catkin_INCLUDE_DIRS})
-target_link_libraries(inferenceNode inferenceEngine ${OpenCV_LIBS} ${catkin_LIBRARIES})
+target_include_directories(inference PUBLIC include ${catkin_INCLUDE_DIRS})
+target_link_libraries(inference inferenceEngine ${OpenCV_LIBS} ${catkin_LIBRARIES})

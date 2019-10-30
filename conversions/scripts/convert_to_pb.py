@@ -53,7 +53,7 @@ try:
     for out_node in sys.argv[4:]:
         output_nodes.append(out_node)
 except Exception as e:
-    print('Usage: python convert_to_pb.py path/to/model.chk.meta path/to/model.chk.data path/to/output.pb (outputNodeName)+')
+    print('Usage: python convert_to_pb.py path/to/model.chk.meta dir/of/checkpoint path/to/output.pb (outputNodeName)+')
     print(e)
     exit()
 
@@ -82,4 +82,3 @@ with tf.Session() as sess:
     # Save the frozen graph
     with open(out_path, 'wb') as f:
       f.write(frozen_graph_def.SerializeToString())
-

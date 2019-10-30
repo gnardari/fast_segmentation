@@ -46,7 +46,7 @@ DataType toDataType(string value)
 
 int main(int argc, char *argv[])
 {
-  if (argc != 10)
+  if (argc != 11)
   {
     cout << "Usage: <uff_filename> <plan_filename> <input_name> <input_height> <input_width> <channels>"
       << " <output_name> <max_batch_size> <max_workspace_size> <data_type>\n";

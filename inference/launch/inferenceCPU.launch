@@ -2,6 +2,7 @@
 
 <launch>
   <!-- SEGMENTATION -->
+  <arg name="frame_id" default="world" />
   <arg name="inf_width" default="900" />
   <arg name="inf_height" default="16" />
   <arg name="inf_numClasses" default="2" />
