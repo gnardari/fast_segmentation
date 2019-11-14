@@ -1,7 +1,6 @@
 # TODOs:
 
 - Make inference more generic (command line/launch file configs)
-- Change the way the input is passed to the gpu in InferenceEngine.cu
 - Add time benchmarks
 
 # Dependencies
